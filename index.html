@@ -1582,7 +1582,6 @@ footer{
 function handleSubmit(e){
   e.preventDefault();
   var btn=document.getElementById("btnSubmit");
-  var form=document.getElementById("formModal")||document.getElementById("formInscricao");
   btn.textContent="Processando...";
   btn.disabled=true;
   var APPS_SCRIPT_URL="https://script.google.com/macros/s/AKfycbwIpqBJvrb_ObDyaNlMGDIN0LyGcQxZ39vXFSYPqXJyqdZjhrJV4heOKstCZtkx1Egh0A/exec";
@@ -1599,19 +1598,6 @@ function handleSubmit(e){
     como_soube:document.getElementById("f_como_soube").value,
     data:new Date().toLocaleString("pt-BR")
   };
-  if(APPS_SCRIPT_URL==="https://script.google.com/macros/s/AKfycbwIpqBJvrb_ObDyaNlMGDIN0LyGcQxZ39vXFSYPqXJyqdZjhrJV4heOKstCZtkx1Egh0A/exec"){
-    setTimeout(function(){
-      btn.textContent="✓ Dados confirmados!";
-      btn.style.background="#4caf7d";
-      setTimeout(function(){
-        alert("MODO DEMONSTRAÇÃO\n\nEm produção, os dados seriam salvos no Google Sheets e você seria redirecionado para o pagamento Asaas.\n\nDados preenchidos:\n"+JSON.stringify(dados,null,2));
-        btn.textContent="Confirmar dados e ir para pagamento →";
-        btn.style.background="";
-        btn.disabled=false;
-      },1500);
-    },800);
-    return;
-  }
   fetch(APPS_SCRIPT_URL,{method:"POST",mode:"no-cors",headers:{"Content-Type":"application/json"},body:JSON.stringify(dados)}).then(function(){
     btn.textContent="✓ Redirecionando para pagamento...";
     btn.style.background="#4caf7d";
@@ -1763,3 +1749,4 @@ document.querySelectorAll('.reveal').forEach((el,i)=>{
 
 </body>
 </html>
+
